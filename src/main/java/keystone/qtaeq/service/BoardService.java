@@ -1,29 +1,29 @@
 package keystone.qtaeq.service;
 
-import keystone.qtaeq.domain.Board;
-import keystone.qtaeq.repository.BoardRepo;
+import keystone.qtaeq.domain.Entity.BoardEntity;
+import keystone.qtaeq.repository.BoardRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
 @Transactional
 public class BoardService {
-    private final BoardRepo boardRepo;
+    private final BoardRepository boardRepository;
 
-    public BoardService(BoardRepo boardRepo){
-        this.boardRepo = boardRepo;
+    public BoardService(BoardRepository boardRepository){
+        this.boardRepository = boardRepository;
     }
 
-    public Long create(Board board){
-        boardRepo.save(board);
-        return board.get_id();
+    public Long create(BoardEntity boardEntity){
+        boardRepository.save(boardEntity);
+        return boardEntity.get_id();
     }
 
-    public Board viewDetail(Long id){
-        return boardRepo.findById(id);
+    public BoardEntity viewDetail(Long id){
+        return boardRepository.findById(id);
     }
 
-    public List<Board> allList(){
-        return boardRepo.findAll();
+    public List<BoardEntity> allList(){
+        return boardRepository.findAll();
     }
 }

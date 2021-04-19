@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="/fragments/header.html"> </head>
+<body>
+
+<nav th:replace="/fragments/nav.html"> </nav>
+
+<div class="container mb-3">
+
+    <h2>관리자 전용 페이지</h2>
+    ID : <span sec:authentication="name"></span> <br>
+    소유 권한 : <span sec:authentication="authorities"></span> <br>
+
+    <form id="logout" action="/logout" method="POST">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="submit" value="로그아웃"/>
+    </form>
+
+    <div class="jumbotron">
+        <table>
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="member : ${members}">  <!-- TimeLeaf 문법, foreach와 비슷한 느낌, members의 갯수만큼 반복 -->
+                <td th:text="${member._id}"></td>
+                <td th:text="${member.id}"></td>
+                <td th:text="${member.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

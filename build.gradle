@@ -18,6 +18,14 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'		// JDBC Template
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'						// Maria DB
 
+	implementation 'org.springframework.boot:spring-boot-starter-security'	// Spring Security
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'	// WebSocket
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

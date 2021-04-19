@@ -1,20 +1,17 @@
-package keystone.qtaeq;
+package keystone.qtaeq.Config;
 
-import keystone.qtaeq.domain.Board;
-import keystone.qtaeq.repository.BoardRepo;
-import keystone.qtaeq.repository.JpaMember;
-import keystone.qtaeq.repository.MemberRepo;
+import keystone.qtaeq.repository.BoardRepository;
 import keystone.qtaeq.service.BoardService;
-import keystone.qtaeq.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 @Configuration
-public class SpringConfig {
+public class SpringConfig{
 
     // 자바코드로 스프링 빈 설정
     // memberController -> memberService -> memberRepository
@@ -29,23 +26,14 @@ public class SpringConfig {
         this.em = em;
     }
 
+    // Board
     @Bean
     public BoardService boardService(){
-        return new BoardService(boardRepo());
+        return new BoardService(boardRepository());
     }
     @Bean
-    public BoardRepo boardRepo(){
-        return new BoardRepo(em);
+    public BoardRepository boardRepository(){
+        return new BoardRepository(em);
     }
 
-    @Bean
-    public MemberService memberService(){
-        return new MemberService(memberRepository());    // Else
-    }
-
-    @Bean
-    public MemberRepo memberRepository(){
-
-        return new JpaMember(em); //JPA
-    }
 }

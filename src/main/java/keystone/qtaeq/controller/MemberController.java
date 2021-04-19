@@ -1,45 +1,58 @@
 package keystone.qtaeq.controller;
 
-import keystone.qtaeq.controller.Form.MemberForm;
-import keystone.qtaeq.domain.Member;
+import keystone.qtaeq.domain.Dto.MemberDto;
 import keystone.qtaeq.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+@RequiredArgsConstructor
 @Controller
 public class MemberController {
 
     private final MemberService memberService;
 
-    @Autowired
-    public MemberController(MemberService memberService){
-        this.memberService = memberService;
+    @GetMapping("/")
+    public String main() {
+        return "home";
     }
 
-    @GetMapping("/members/new")
-    public String createForm(){
-        return "members/createMemberForm";
+    @GetMapping("/login")
+    public String login() {
+        return "/members/login";
     }
 
-    @PostMapping("/members/new")
-    public String create(MemberForm form){
-        Member member = new Member();
-        member.setName(form.getName());
-
-        memberService.join(member);
-
-        return "redirect:/";
+    @GetMapping("/admin")
+    public String admin() {
+        return "/members/admin";
     }
 
-    @GetMapping("/members")
-    public String list(Model model){
-        List<Member> members = memberService.findMembers();
-        model.addAttribute("members", members);
-        return "members/memberList";
+    @GetMapping("/signup")
+    public String signup() {
+        return "/members/signup";
+    }
+
+    @GetMapping("/info")
+    public String info() {
+        return "/members/myInfo";
+    }
+
+    @PostMapping("/signup")
+    public String signup(MemberDto memberDto) { // 회원 추가
+
+        memberService.save(memberDto);
+        return "redirect:/login";
+    }
+    // 추가
+    @GetMapping(value = "/logout")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+        return "redirect:/login";
     }
 }

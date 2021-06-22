@@ -9,12 +9,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RestController
 public class BoardController {
     private final BoardService boardService;
 
@@ -54,6 +57,12 @@ public class BoardController {
 
         model.addAttribute("board", boardEntity);
         return "boards/boardDetail";
+    }
+
+    @GetMapping("/api/board/{no}")
+    public String viewDetail(@PathVariable("no") Long id){
+        BoardEntity boardEntity = boardService.viewDetail(id);
+        return boardEntity.getBody();
     }
 
 }

@@ -22,4 +22,5 @@ public class BoardEntity {
     private String body;
     @Column(name = "date")
     private Timestamp date;
+
 }

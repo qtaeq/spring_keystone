@@ -19,7 +19,7 @@ public class BoardRepository {
     }
 
     public BoardEntity findById(Long id){
-        BoardEntity boardEntity = em.find(BoardEntity.class, id);
+        BoardEntity boardEntity = em.find(BoardEntity.class, di);
         return boardEntity;
     }
 

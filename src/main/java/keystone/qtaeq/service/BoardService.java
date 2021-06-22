@@ -19,6 +19,8 @@ public class BoardService {
         return boardEntity.get_id();
     }
 
+
+
     public BoardEntity viewDetail(Long id){
         return boardRepository.findById(id);
     }
